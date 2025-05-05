@@ -4,5 +4,6 @@ A Complete full-stack Application made using Docker, Flutter(FrontEnd) and Nodej
 
 The GITHUB repo for this Project has yet to be updated so sorry if any recruiter came to here me and found nothing here. 
 
-This issue will be resolved shortly and if you wish to proceed any fursther communication with me then I will be very pleased to here from # YOU and you can contact me via email id, VATSALSANJEEV@GMAIL.COM
+This issue will be resolved shortly and if you wish to proceed any fursther communication with me then I will be very pleased to here from 
+# YOU and you can contact me via email id, VATSALSANJEEV@GMAIL.COM
 # Thanks for visiting my Github Repo.
