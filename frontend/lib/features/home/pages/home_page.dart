@@ -59,12 +59,11 @@ class _HomePageState extends State<HomePage> {
           if (state is GetTasksSuccess) {
             // print('state is GetTasksSuccess --> ${state.tasks}');
             final tasks = state.tasks
-              .where(
-                (elem) =>
-                  DateFormat('d').format(elem.dueAt) == DateFormat('d').format(selectedDate) &&
-                  elem.dueAt.month == selectedDate.month &&
-                  elem.dueAt.year == selectedDate.year
-              ).toList();
+                .where((elem) =>
+                    DateFormat('d').format(elem.dueAt) == DateFormat('d').format(selectedDate) &&
+                    elem.dueAt.month == selectedDate.month &&
+                    elem.dueAt.year == selectedDate.year)
+                .toList();
             return Column(
               children: [
                 DateSelector(
@@ -81,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         final task = tasks[index];
                         return GestureDetector(
-                          onLongPress: (){
+                          onLongPress: () {
                             setState(() {
                               tasks.removeAt(index);
                             });
@@ -105,7 +104,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(12.0),
-                                child: Text(DateFormat.jm().format(task.dueAt),
+                                child: Text(
+                                  DateFormat.jm().format(task.dueAt),
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -116,8 +116,7 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         );
-                      }
-                    ),
+                      }),
                 ),
               ],
             );

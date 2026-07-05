@@ -23,11 +23,9 @@ class TaskLocalRepository {
     return openDatabase(
       path,
       version: 5,
-      onUpgrade: (db, oldVersion, newVersion) async  {
+      onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < newVersion) {
-          await db.execute(
-            'ALTER TABLE $tableName ADD COLUMN isSynced INTEGER NOT NULL'
-          );
+          await db.execute('ALTER TABLE $tableName ADD COLUMN isSynced INTEGER NOT NULL');
         }
       },
       onCreate: (db, version) {
@@ -67,18 +65,19 @@ class TaskLocalRepository {
     await db.insert(
       tableName,
       task.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   Future<List<TaskModel>> getTasks() async {
     final db = await database;
     final result = await db.query(tableName);
-    
+
     print('Result : $result');
-    
+
     if (result.isNotEmpty) {
       List<TaskModel> tasks = [];
-      for(final elem in result) {
+      for (final elem in result) {
         // print('elem ==> $elem');
         tasks.add(TaskModel.fromMap(elem));
       }

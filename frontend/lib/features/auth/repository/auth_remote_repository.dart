@@ -36,6 +36,7 @@ class AuthRemoteRepository {
 
       return UserModel.fromJson(res.body);
     } catch (e) {
+      print('Error SignUp User -- $e');
       throw e.toString();
     }
   }

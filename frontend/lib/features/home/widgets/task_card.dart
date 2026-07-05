@@ -5,7 +5,7 @@ class TaskCard extends StatelessWidget {
   final String headerText;
   final String descriptionText;
 
-  TaskCard(
+  const TaskCard(
       {required this.color, required this.headerText, required this.descriptionText, super.key});
 
   @override

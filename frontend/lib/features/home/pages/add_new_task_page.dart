@@ -1,5 +1,4 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/cubit/auth_cubit.dart';
@@ -30,7 +29,7 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
       AuthLoggedIn user = context.read<AuthCubit>().state as AuthLoggedIn;
 
       await context.read<AddNewTaskCubit>().createNewTask(
-        uid: user.user.id,
+            uid: user.user.id,
             title: titleController.text.trim(),
             description: descriptionController.text.trim(),
             color: selectedColor,
@@ -96,7 +95,7 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
                 child: CircularProgressIndicator(),
               );
             }
-        
+
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Form(

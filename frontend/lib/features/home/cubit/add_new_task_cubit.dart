@@ -24,29 +24,30 @@ class AddNewTaskCubit extends Cubit<AddNewTaskState> {
     try {
       emit(AddNewTaskLoading());
       final taskModel = await taskRemoteRepository.createTask(
-        uid: uid,
+          uid: uid,
           title: title,
           description: description,
           hexColor: rgbToHex(color),
           dueAt: dueAt,
-          token: token
-      );
+          token: token);
 
       await taskLocalRepository.insertTask(taskModel);
 
       emit(AddNewTaskSuccess(taskModel));
     } catch (error) {
+      print(error);
       emit(AddNewTaskError('createNewTasks ==> ${error.toString()}'));
     }
   }
 
-  Future<void> getAllTasks({required String token,}) async {
+  Future<void> getAllTasks({
+    required String token,
+  }) async {
     try {
       emit(AddNewTaskLoading());
       final tasks = await taskRemoteRepository.getTasks(token: token);
       emit(GetTasksSuccess(tasks));
-    }
-    catch (error) {
+    } catch (error) {
       emit(AddNewTaskError('getAllTasks ==> ${error.toString()}'));
     }
   }
