@@ -1,3 +1,3 @@
 class Constants {
-  static String backendUri = "https://memories-backend-latest-htlv.onrender.com";
+  static String backendUri = "https://memories-backend-5pjv.onrender.com";
 }
