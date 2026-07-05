@@ -7,3 +7,24 @@ You can contact me via email id,
 vatsalsanjeev@gmail.com
 
 Thanks for visiting my Github Repo.
+
+# Steps to run The App 
+
+Frontend 
+1. Enable Dart Support (if on android studio)
+2. run
+```dart
+flutter pub get
+```
+3. Create A Emulator and run the app
+
+Backend
+1. Download Docker
+2. run two command --
+```
+// to start the backend
+docker compose up --build
+
+// if you wish to close or exit the docker or backend
+docker compose down
+```
