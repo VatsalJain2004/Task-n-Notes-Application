@@ -9,14 +9,7 @@ vatsalsanjeev@gmail.com
 Thanks for visiting my Github Repo.
 
 # Steps to run The App 
-
-Frontend 
-1. Enable Dart Support (if on android studio)
-2. run
-```dart
-flutter pub get
-```
-3. Create A Emulator and run the app
+- Run the Backend Before running the frontend
 
 Backend
 1. Download Docker
@@ -28,3 +21,11 @@ docker compose up --build
 // if you wish to close or exit the docker or backend
 docker compose down
 ```
+
+Frontend 
+1. Enable Dart Support (if on android studio)
+2. run
+```dart
+flutter pub get
+```
+3. Create A Emulator and run the app
