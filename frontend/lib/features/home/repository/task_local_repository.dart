@@ -1,4 +1,3 @@
-import 'package:frontend/models/user_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/features/auth/cubit/auth_cubit.dart';
 import 'package:frontend/features/home/cubit/add_new_task_cubit.dart';
 import 'package:frontend/features/home/pages/home_page.dart';
+import 'package:frontend/models/task_model.dart';
 import 'package:intl/intl.dart';
 
 class AddNewTaskPage extends StatefulWidget {
-  static MaterialPageRoute route() => MaterialPageRoute(
-        builder: (context) => const AddNewTaskPage(),
+  final TaskModel? task;
+  const AddNewTaskPage({super.key, this.task});
+
+  static MaterialPageRoute route({TaskModel? task}) => MaterialPageRoute(
+        builder: (context) => AddNewTaskPage(task: task),
       );
-  const AddNewTaskPage({super.key});
 
   @override
   State<AddNewTaskPage> createState() => _AddNewTaskPageState();
@@ -27,7 +30,6 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
   void createNewTask() async {
     if (formKey.currentState!.validate()) {
       AuthLoggedIn user = context.read<AuthCubit>().state as AuthLoggedIn;
-
       await context.read<AddNewTaskCubit>().createNewTask(
             uid: user.user.id,
             title: titleController.text.trim(),
@@ -36,6 +38,17 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
             dueAt: selectedDate,
             token: user.user.token,
           );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.task != null) {
+      titleController.text = widget.task?.title ?? '';
+      descriptionController.text = widget.task?.description ?? '';
+      selectedColor = widget.task?.color ?? Colors.deepOrange.shade100;
+      selectedDate = widget.task?.updatedAt ?? DateTime.now();
     }
   }
 
@@ -49,7 +62,10 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         title: Text('Add New Task'),
         centerTitle: true,
         actions: [

@@ -13,11 +13,21 @@ class DateSelector extends StatefulWidget {
 
 class _DateSelectorState extends State<DateSelector> {
   int weekOffset = 0;
+  late List<DateTime> weekDates;
+  late String monthName;
+
+  @override
+  void initState() {
+    super.initState();
+    weekOffset = 0;
+    weekDates = generateWeekDates(weekOffset);
+    monthName = DateFormat("MMMM").format(weekDates.first);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final weekDates  = generateWeekDates(weekOffset);
-    String monthName = DateFormat("MMMM").format(weekDates.first);
+    weekDates = generateWeekDates(weekOffset);
+    monthName = DateFormat("MMMM").format(weekDates.first);
     return Column(
       children: [
         Padding(
@@ -26,23 +36,24 @@ class _DateSelectorState extends State<DateSelector> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     weekOffset -= 1;
+
+                    print('Updated Week offset --> $weekOffset');
                   });
                 },
                 icon: Icon(Icons.arrow_back_ios),
               ),
-              Text(monthName,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600
-                ),
+              Text(
+                monthName,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               IconButton(
-                onPressed: (){
+                onPressed: () {
                   setState(() {
                     weekOffset += 1;
+                    print('Updated Week offset --> $weekOffset');
                   });
                 },
                 icon: Icon(Icons.arrow_forward_ios),
@@ -55,52 +66,48 @@ class _DateSelectorState extends State<DateSelector> {
           child: SizedBox(
             height: 90,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: weekDates.length,
-              itemBuilder: (context, index) {
-                final date = weekDates[index];
-                bool isSelected =
-                  DateFormat('d').format(date) == DateFormat('d').format(widget.selectedDate) &&
-                  date.month == widget.selectedDate.month &&
-                  date.year == widget.selectedDate.year;
+                scrollDirection: Axis.horizontal,
+                itemCount: weekDates.length,
+                itemBuilder: (context, index) {
+                  final date = weekDates[index];
+                  bool isSelected = DateFormat('dd/MM/yyyy').format(date) ==
+                      DateFormat('dd/MM/yyyy').format(widget.selectedDate);
 
-                return GestureDetector(
-                  onTap: () => widget.onTap(date),
-                  child: Container(
-                    margin: EdgeInsets.only(right: 9),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.purpleAccent.shade100 : null,
-                      border: Border.all(
-                        color: isSelected ? Colors.purpleAccent.shade100 : Colors.grey.shade300,
-                        width: 2,
+                  return GestureDetector(
+                    onTap: () {
+                      widget.onTap(date);
+                      setState(() {
+                        monthName = DateFormat('MMMM').format(date);
+                        print('updated monthName is $monthName');
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 9),
+                      decoration: BoxDecoration(
+                          color: isSelected ? Colors.purpleAccent.shade100 : null,
+                          border: Border.all(
+                            color: isSelected ? Colors.purpleAccent.shade100 : Colors.grey.shade300,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(15)),
+                      width: 70,
+                      child: Column(
+                        spacing: 10,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            DateFormat('d/MM').format(date),
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            DateFormat('E').format(date),
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                          ),
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(15)
                     ),
-                    width: 70,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(DateFormat('d').format(date),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400
-                          ),
-                        ),
-
-                        SizedBox(height: 10,),
-
-                        Text(DateFormat('E').format(date),
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-            ),
+                  );
+                }),
           ),
         ),
       ],

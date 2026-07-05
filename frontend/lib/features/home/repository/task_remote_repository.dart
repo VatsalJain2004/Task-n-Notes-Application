@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:frontend/core/constants/constants.dart';
 import 'package:frontend/core/constants/utils.dart';
 import 'package:frontend/features/home/repository/task_local_repository.dart';
@@ -10,7 +10,7 @@ import 'package:uuid/uuid.dart';
 class TaskRemoteRepository {
   final taskLocalRepository = TaskLocalRepository();
 
-  Future<TaskModel> createTask({
+  Future<TaskModel> insertTask({
     required String title,
     required String description,
     required String hexColor,
@@ -53,8 +53,7 @@ class TaskRemoteRepository {
         );
         await taskLocalRepository.insertTask(taskModel);
         return taskModel;
-      }
-      catch (error) {
+      } catch (error) {
         rethrow;
       }
     }
@@ -70,18 +69,18 @@ class TaskRemoteRepository {
         },
       );
 
-      print('getTasks token ==> ${token}');
+      print('getTasks token ==> $token');
 
       final decoded = jsonDecode(res.body);
       final listOfTasks = decoded is List ? decoded : decoded['tasks'];
-      print('getTasks listOfTasks ==> ${listOfTasks}');
+      print('getTasks listOfTasks ==> $listOfTasks');
 
       List<TaskModel> tasksLists = [];
 
       for (dynamic elem in listOfTasks) {
         tasksLists.add(TaskModel.fromMap(elem));
       }
-      print('tasksList ==? ${tasksLists}');
+      print('tasksList ==? $tasksLists');
       await taskLocalRepository.insertTasks(tasksLists);
       print('taskLocalRepository.insertTasks(tasksLists) ==> ${tasksLists.toList()}');
 
