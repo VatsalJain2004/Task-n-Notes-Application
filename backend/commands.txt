@@ -1,0 +1,21 @@
+to initiate docker 
+
+docker run -p ${port_on_server}:${port_on_image} ${image-name} 
+docker run -p 8000:9000 image_name
+${}  --> js 
+
+
+on yml
+- DATABASE_URL=postgresql://postgres:test123@db:5432/mydb
+                            name     password
+
+
+on docker app
+/*
+  psql  --> postgres client to interact with a PostgreSQL database
+  -U popstgres: This specifies the username to use when connecting. Here, you're trying to connect as the user named popstgres.
+  -d mydb: This tells psql to connect to the database named mydb.
+*/
+psql -U postgres -d mydb
+
+SELECT * from users; // give all the users present.

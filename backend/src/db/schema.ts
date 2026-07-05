@@ -15,7 +15,6 @@ export const users = pgTable(
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 
-
 export const tasks = pgTable(
   "tasks",
   {
@@ -35,4 +34,4 @@ export const tasks = pgTable(
 );
 
 export type Task = typeof tasks.$inferSelect;
-export type NewTask = typeof tasks.$inferInsert;
+export type NewTask = typeof tasks.$inferInsert;  
